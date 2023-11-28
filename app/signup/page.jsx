@@ -1,7 +1,7 @@
 import Signup from "./Signup"
 
 export const metadata = {
-    title: "Sign up",
+    title: "Sign up for X",
     description: "Remixed by @nexxdevv"
   }
 
