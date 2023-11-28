@@ -2,3 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply antialiased dark:text-white dark:bg-black;
+}
+
+* {
+  @apply dark:border-spotty;
+  scrollbar-width: none;
+}
