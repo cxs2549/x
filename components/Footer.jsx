@@ -21,7 +21,7 @@ const links = [
   
   const Footer = () => {
     return (
-      <footer className="text-[13px] p-4 h-fit mx-auto max-w-[1400px] w-full">
+      <footer className="text-[13px] p-4 h-fit mx-auto lg:max-w-[1440px] w-full max-w-[705px]">
         <ul className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1.5">
           {links.map((link, i) => (
             <li

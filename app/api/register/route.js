@@ -18,7 +18,7 @@ export async function POST(req) {
       dob
     })
 
-    const response = await NextAuth.register(req, options)
+    await NextAuth.register(req, options)
     return NextResponse.json({ success: true }, { status: 200 })
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })

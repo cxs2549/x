@@ -2,9 +2,9 @@ import { Schema, models, model } from "mongoose"
 
 const userSchema = new Schema({
   name: { type: String, required: true },
-  username: { type: String, required: false, unique: true },
   email: { type: String, required: true, unique: true },
   image: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
   bgimage: { type: String, required: true, default: "https://res.cloudinary.com/cloud-x/image/upload/v1700684443/user-bg-photos/default_u7kanq.jpg" },
   password: { type: String, required: false },
   bio: { type: String, required: false },

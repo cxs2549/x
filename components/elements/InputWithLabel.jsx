@@ -38,7 +38,7 @@ const InputWithLabel = ({
         onChange={handleInputChange}
         name={label}
         placeholder={placeholder}
-        className={`w-full pt-8 pb-1 pl-2 pr-2 text-base bg-transparent border rounded focus:outline-none focus:border-brand focus:border-2 ${
+        className={`w-full pt-8 pb-1 pl-2 pr-2 text-base bg-white dark:bg-black  rounded focus:outline-none focus:border-brand focus:border-2 ${
           placeholder && "pb-5"
         }`}
         onFocus={handleInputFocus}

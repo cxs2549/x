@@ -2,6 +2,7 @@ import connectDB from "@/app/db"
 import User from "@/models/User"
 import NextAuth from "next-auth/next"
 import CredentialsProvider from "next-auth/providers/credentials"
+import GoogleProvider from "next-auth/providers/google"
 import bcrypt from "bcryptjs"
 
 export const authOptions = {
@@ -29,6 +30,43 @@ export const authOptions = {
           return user
         } catch (error) {
           console.log("Error: ", error)
+        }
+      }
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code"
+        }
+      },
+      async profile(profile) {
+        const { name, email, picture } = profile
+        const username = email.replace(/@gmail.com/g, '')
+        try {
+          await connectDB()
+          let user = await User.findOne({ email })
+          if(!user) {
+            user = await User.create({
+              name,
+              username,
+              email,
+              image: picture
+            })
+          }
+          return {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            image: user.image,
+            username: user.username
+          }
+        } catch (error) {
+          console.error('Error: ', error)
+          throw error
         }
       }
     })

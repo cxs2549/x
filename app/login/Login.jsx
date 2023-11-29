@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation"
 import Header from "@/components/Header"
 import InputWithLabel from "@/components/elements/InputWithLabel"
 import Image from "next/image"
+import Footer from "@/components/Footer"
+import Link from "next/link"
 
 const Login = () => {
  
@@ -48,26 +50,40 @@ const Login = () => {
 
   return (
     <>
-      <Header classes={`border-none px-4 justify-center`}>
-        <Image
-          src={`/logo.png`}
-          width={40}
-          height={40}
-          alt="X logo"
-          className="dark:invert"
-        />
+      <Header classes={`border-none px-4 justify-center lg:hidden`}>
+        <Link href="/">
+          <Image
+            src={`/logo.png`}
+            width={40}
+            height={40}
+            alt="X logo"
+            className="dark:invert"
+          />
+        </Link>
       </Header>
-      <h1 className="p-4 text-[25px] font-bold">Log in to X</h1>
-      <form className="flex flex-col gap-4 p-4" onSubmit={handleSubmitLogin}>
-        <InputWithLabel label="email" handleInputChange={handleInputChange} />
-        <InputWithLabel label="password" type="password" handleInputChange={handleInputChange} />
-        <button
-          type="submit"
-          className="w-full py-2 mt-2 font-bold text-black bg-white rounded-full"
-        >
-          Login
-        </button>
-      </form>
+      <main className="max-w-[1140px] lg:flex lg:gap-10  flex-1 lg:items-center  w-full mx-auto lg:justify-center mt-20">
+      <Image
+          src={`/logo.png`}
+          width={310}
+          height={310}
+          className=" aspect-square max-w-[310px] h-[310px] dark:invert hidden lg:block  "
+          alt="X logo"
+        />
+        <section className="flex flex-col items-center justify-center mx-auto md:p-8 rounded-xl w-fit dark:bg-spotty">
+          <h1 className="p-4 text-[25px] font-bold ">Log in to X</h1>
+          <form className="flex flex-col gap-4 p-4 max-w-[300px]" onSubmit={handleSubmitLogin}>
+            <InputWithLabel label="email" handleInputChange={handleInputChange} />
+            <InputWithLabel label="password" type="password" handleInputChange={handleInputChange} />
+            <button
+              type="submit"
+              className="w-full py-2.5 mt-2 font-bold text-white rounded-full bg-brand"
+            >
+              Login
+            </button>
+          </form>
+        </section>
+      </main>
+      <Footer />
     </>
   )
 }

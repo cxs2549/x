@@ -1,13 +1,11 @@
 const { default: Onboarding } = require("./onboarding/Onboarding")
 
 export const metadata = {
-  title: "X | Login on Join today",
+  title: "X. It's what's happening",
   description: "Remixed by @nexxdevv"
 }
 
 const OnboardingPage = () => {
-  return (
-    <Onboarding />
-  )
+  return <Onboarding />
 }
 export default OnboardingPage
