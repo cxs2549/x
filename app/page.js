@@ -5,9 +5,9 @@ export const metadata = {
   description: "Remixed by @nexxdevv"
 }
 
-const Homepage = () => {
+const OnboardingPage = () => {
   return (
     <Onboarding />
   )
 }
-export default Homepage
+export default OnboardingPage

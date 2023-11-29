@@ -41,9 +41,9 @@ const Onboarding = () => {
         </div>
         <section className="my-10">
             <h3 className="text-[17px] font-bold">Already have an account?</h3>
-            <button className="w-full py-2 mt-2.5 font-bold text-brand border-[#536471] border-2 rounded-full">
+            <Link href={`/login`} className="block text-center w-full py-2 mt-2.5 font-bold text-brand border-[#536471] border-2 rounded-full">
               Sign in
-            </button>
+            </Link>
         </section>
       </main>
       <Footer />

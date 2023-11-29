@@ -7,6 +7,6 @@ body {
 }
 
 * {
-  @apply dark:border-spotty;
+  @apply dark:border-[#333639];
   scrollbar-width: none;
 }

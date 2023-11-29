@@ -1,8 +1,10 @@
 "use client"
 import InputWithLabel from "@/components/elements/InputWithLabel"
+import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 import { ArrowLeft, X } from "react-feather"
+import { useRouter } from "next/navigation"
 
 const Step1 = ({ handleInputChange }) => {
   return (
@@ -12,7 +14,7 @@ const Step1 = ({ handleInputChange }) => {
         <InputWithLabel label="name" handleInputChange={handleInputChange} />
         <InputWithLabel label="email" handleInputChange={handleInputChange} />
         <h4 className="mt-4 font-bold">Date of birth</h4>
-        <p className="text-[13px] text-fade leading-4">
+        <p className="text-[13px] text-fade leading-4 -mt-2">
           This will not be shown publicly. Confirm your own age, even if this
           account is for a business, a pet, or something else.
         </p>
@@ -36,15 +38,10 @@ const Step2 = ({ handleInputChange, newUser }) => {
           label="username"
           handleInputChange={handleInputChange}
         />
+
         {/* password1 */}
         <InputWithLabel
           label="password"
-          type="password"
-          handleInputChange={handleInputChange}
-        />
-        {/* password2 */}
-        <InputWithLabel
-          label={"confirm password"}
           type="password"
           handleInputChange={handleInputChange}
         />
@@ -54,13 +51,88 @@ const Step2 = ({ handleInputChange, newUser }) => {
 }
 
 const CreateAccount = ({ newUser }) => {
+  const [imageSrc, setImageSrc] = useState(null)
+  const router = useRouter()
+  // for photo
+  function handleOnChangePhoto(changeEvent) {
+    const file = changeEvent.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = function (onLoadEvent) {
+        setImageSrc(onLoadEvent.target.result)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const form = e.currentTarget
+    const fileInput = Array.from(form.elements).find(
+      ({ name }) => name === "file"
+    )
+
+    const photoFormData = new FormData()
+    for (const file of fileInput.files) {
+      photoFormData.append("file", file)
+    }
+    photoFormData.append("upload_preset", "user-photos")
+
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/cloud-x/image/upload",
+      {
+        method: "POST",
+        body: photoFormData
+      }
+    )
+
+    const data = await response.json()
+
+    newUser.image = data.secure_url
+
+    await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newUser)
+    })
+
+    router.push("/login")
+  }
   return (
     <div>
       <h1 className="text-[25px] font-bold my-5">Confirm your account</h1>
-      <form className="flex flex-col gap-4">
+
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        {/* Photo Input */}
+        <div>
+          <div className="flex items-center gap-2 mb-4">
+            <Image
+              height={32}
+              width={32}
+              alt=""
+              src={imageSrc || `/faces/noface.png`}
+              className="rounded-full"
+            />
+            <input
+              type="file"
+              name="file"
+              className="text-sm"
+              onChange={handleOnChangePhoto}
+            />
+          </div>
+        </div>
         <InputWithLabel label="Name" placeholder={newUser.name} />
         <InputWithLabel label="Email" placeholder={newUser.email} />
         <InputWithLabel label="Username" placeholder={newUser.username} />
+
+        <button
+          type="submit"
+          className={`w-full py-3 mt-4 font-bold text-black bg-white rounded-full`}
+        >
+          Register
+        </button>
       </form>
     </div>
   )
@@ -84,11 +156,12 @@ const steps = [
 
 const MultiStepForm = () => {
   const [newUser, setNewUser] = useState({
+    username: "",
     name: "",
     email: "",
-    "date of birth": "",
-    username: "",
-    password: ""
+    password: "",
+    dob: "",
+    image: ""
   })
   const [currentStep, setCurrentStep] = useState(0)
 
@@ -106,13 +179,13 @@ const MultiStepForm = () => {
     if (name === "date of birth") {
       const date = new Date(`${value}T00:00:00Z`)
       const formattedDate = date.toLocaleDateString("en-US", {
-        month: "short",
+        month: "long",
         day: "numeric",
         timeZone: "UTC"
       })
       setNewUser((prevUser) => ({
         ...prevUser,
-        "date of birth": formattedDate
+        dob: formattedDate
       }))
     } else {
       setNewUser((prevUser) => ({
@@ -120,12 +193,6 @@ const MultiStepForm = () => {
         [name]: value
       }))
     }
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Call your API endpoint to register new user and save to MongoDB
-    // Pass the `newUser` object as the payload
   }
 
   const StepComponent = steps[currentStep].component
@@ -151,13 +218,11 @@ const MultiStepForm = () => {
 
       <button
         onClick={handleNext}
-        className="w-full py-4 mt-4 font-bold text-black bg-white rounded-full"
-        disabled={currentStep === steps.length - 1}
+        className={`w-full py-3 mt-4 font-bold text-black bg-white rounded-full ${
+          currentStep === steps.length - 1 ? "hidden" : ""
+        }`}
       >
-        <span>
-          {/* if last step, show "Submit" */}
-          {currentStep === steps.length - 1 ? "Submit" : "Next"}
-        </span>
+        Next
       </button>
     </div>
   )
