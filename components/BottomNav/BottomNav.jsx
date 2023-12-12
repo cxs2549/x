@@ -4,12 +4,14 @@ import Image from "next/image"
 import Link from "next/link"
 import PostBtn from "./PostBtn/PostBtn"
 import { usePathname } from "next/navigation"
+import { useSession } from "next-auth/react"
 
 const BottomNav = () => {
   const pathname = usePathname()
   const [show, setShow] = useState(true)
   const [scrollPos, setScrollPos] = useState(0)
   const barRef = useRef(null)
+  const { data: session } = useSession()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,23 +32,23 @@ const BottomNav = () => {
     {
       name: "home",
       href: "/home",
-      icon: "/icons/home.svg",
+      icon: "/icons/home.svg"
     },
     {
       name: "explore",
       href: "/explore",
-      icon: "/icons/search.svg",
+      icon: "/icons/search.svg"
     },
     {
       name: "notifications",
       href: "/notifications",
-      icon: "/icons/notifications.svg",
+      icon: "/icons/notifications.svg"
     },
     {
       name: "messages",
       href: "/messages",
-      icon: "/icons/inbox.svg",
-    },
+      icon: "/icons/inbox.svg"
+    }
   ]
 
   return (
@@ -54,7 +56,7 @@ const BottomNav = () => {
       ref={barRef}
       className={`fixed  bottom-2 left-2 right-2 transitation-all duration-300 xs:hidden ${
         show ? "translate-y-0" : "translate-y-[76px]"
-      } ${pathname === "/" && "hidden"}`}
+      } ${session?.user ? "" : "hidden"}`}
     >
       <PostBtn />
       <div className="items-center h-auto py-4 shadow-lg dark:border bg-slate-100 dark:bg-spotty backdrop-blur-md rounded-xl border-lightFade dark:border-none">

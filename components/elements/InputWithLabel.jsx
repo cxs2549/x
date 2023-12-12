@@ -21,7 +21,7 @@ const InputWithLabel = ({
   }
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full overflow-hidden rounded max-w-[300px] ">
       <label
         className={`absolute  transition-all duration-200 font-medium left-2 ${
           isInputFocused

@@ -17,15 +17,12 @@ const Home = () => {
   const [isForYou, setIsForYou] = useState(true)
   const { data: session } = useSession()
 
-  
-
   const tabs = [{ label: "For you" }, { label: "Following" }]
 
-  const forYouPosts = posts.filter((post) => post.source === "foryou").reverse()
-  const followingPosts = posts
-    .filter((post) => post.source === "following")
-    .reverse()
-
+  let forYouPosts = []
+  let followingPosts = []
+  forYouPosts = posts.filter((post) => post.source === "foryou").reverse()
+  followingPosts = posts.filter((post) => post.source === "following").reverse()
 
   const renderPosts = (posts) => (
     <AnimatePresence mode="wait">
@@ -62,7 +59,7 @@ const Home = () => {
             className="rounded-full"
           />
         </button>
-        <Tabs tabs={tabs} set={setIsForYou}  />
+        <Tabs tabs={tabs} set={setIsForYou} />
         <Image
           src={`/logo.png`}
           width={32}
@@ -71,7 +68,7 @@ const Home = () => {
           className="dark:invert xs:hidden"
         />
         <button className="hidden opacity-50 xs:block hover:opacity-100">
-          <BiCog size={25}  />
+          <BiCog size={25} />
         </button>
       </Header>
       <Drawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />

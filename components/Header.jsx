@@ -22,7 +22,7 @@ const Header = ({ children, classes }) => {
 
   return (
     <header
-      className={`${classes} gap-4 sticky top-0 flex items-center justify-between p-2 xxs:p-4 transition-all duration-300 z-20  rounded-xl max-w-[600px]  min-h-[72px] w-full bg-slate-100 dark:bg-spotty ${
+      className={`${classes} gap-4 sticky xs:static top-0 flex items-center justify-between p-2 xxs:p-4 transition-all duration-300 z-20  rounded-xl max-w-[600px]  min-h-[72px] w-full bg-slate-100 dark:bg-spotty ${
         show ? "translate-y-0" : "-translate-y-[140%]"
       } ${pathname === "/" && "bg-transparent shadow-none"} `}
     >

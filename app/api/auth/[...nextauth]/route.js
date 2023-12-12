@@ -36,20 +36,14 @@ export const authOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      authorization: {
-        params: {
-          prompt: "consent",
-          access_type: "offline",
-          response_type: "code"
-        }
-      },
+
       async profile(profile) {
         const { name, email, picture } = profile
-        const username = email.replace(/@gmail.com/g, '')
+        const username = email.replace(/@gmail.com/g, "")
         try {
           await connectDB()
           let user = await User.findOne({ email })
-          if(!user) {
+          if (!user) {
             user = await User.create({
               name,
               username,
@@ -65,7 +59,7 @@ export const authOptions = {
             username: user.username
           }
         } catch (error) {
-          console.error('Error: ', error)
+          console.error("Error: ", error)
           throw error
         }
       }

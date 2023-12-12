@@ -61,7 +61,7 @@ const Login = () => {
           />
         </Link>
       </Header>
-      <main className="max-w-[1140px] lg:flex lg:gap-10  flex-1 lg:items-center  w-full mx-auto lg:justify-center mt-20">
+      <main className="max-w-[1140px] border lg:flex lg:gap-10  flex-1 lg:items-center  w-full mx-auto lg:justify-center mt-20 h-full">
       <Image
           src={`/logo.png`}
           width={310}
@@ -69,14 +69,14 @@ const Login = () => {
           className=" aspect-square max-w-[310px] h-[310px] dark:invert hidden lg:block  "
           alt="X logo"
         />
-        <section className="flex flex-col items-center justify-center mx-auto md:p-8 rounded-xl w-fit dark:bg-spotty">
+        <section className="flex flex-col  justify-center mx-auto md:p-8 rounded-xl w-full dark:bg-spotty max-w-[340px]">
           <h1 className="p-4 text-[25px] font-bold ">Log in to X</h1>
-          <form className="flex flex-col gap-4 p-4 max-w-[300px]" onSubmit={handleSubmitLogin}>
+          <form className="flex flex-col gap-4 p-4 md:max-w-[300px] w-full" onSubmit={handleSubmitLogin}>
             <InputWithLabel label="email" handleInputChange={handleInputChange} />
             <InputWithLabel label="password" type="password" handleInputChange={handleInputChange} />
             <button
               type="submit"
-              className="w-full py-2.5 mt-2 font-bold text-white rounded-full bg-brand"
+              className="w-full py-2.5 mt-2 max-w-[300px] font-bold text-white rounded-full bg-brand"
             >
               Login
             </button>

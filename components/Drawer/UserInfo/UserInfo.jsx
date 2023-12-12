@@ -41,11 +41,11 @@ const UserInfo = () => {
       {/* followings */}
       <div className="flex gap-2 px-4 text-sm py-0.5">
         <p className="cursor-pointer text-lightFont hover:underline">
-          <span className="font-semibold text-black dark:text-white">19</span>{" "}
+          <span className="font-semibold text-black dark:text-white">{session?.user.following.length}</span>{" "}
           Following
         </p>
         <p className="cursor-pointer text-lightFont hover:underline">
-          <span className="font-semibold text-black dark:text-white">1.9M</span>{" "}
+          <span className="font-semibold text-black dark:text-white">{session?.user.followers.length}</span>{" "}
           Followers
         </p>
       </div>
