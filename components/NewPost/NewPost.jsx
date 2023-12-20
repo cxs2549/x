@@ -74,7 +74,7 @@ const NewPost = () => {
       username: session?.user?.username,
       image: session?.user?.image,
       msg: newPostContent,
-      postImg: data.secure_url,
+      postImg: data.secure_url || "",
       source: "foryou",
       postedAt: new Date().getTime().toString(),
       datePosted: new Date(),
@@ -84,8 +84,10 @@ const NewPost = () => {
       bookmarks: 0
     }
 
+   
+
     try {
-      const postResponse = await fetch("api/post", {
+      const postResponse = await fetch("/api/post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

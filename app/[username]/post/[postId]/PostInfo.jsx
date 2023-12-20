@@ -31,14 +31,14 @@ const PostPage = () => {
   const [replies, setReplies] = useState([])
 
   useEffect(() => {
-    fetch(`/api/post/?postId=${postId}`, {
+    fetch(`/api/post/${postId}`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     })
       .then((response) => response.json())
-      .then((data) => setPost(data))
+      .then((data) => setPost(data.post[0]))
   }, [postId])
 
   const handleSubmitNewReply = async (e) => {
@@ -57,7 +57,7 @@ const PostPage = () => {
       likes: 0,
       bookmarks: 0,
       reposts: 0,
-      views: 0,
+      views: 0
     }
 
     // Make a POST request to add the new reply to the selected Post's replies array
@@ -65,9 +65,9 @@ const PostPage = () => {
       const response = await fetch(`/api/post/${postId}/save-replies`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(theNewReply),
+        body: JSON.stringify(theNewReply)
       })
 
       if (response.ok) {
@@ -88,11 +88,11 @@ const PostPage = () => {
   // fetch all replies
   useEffect(() => {
     const getPostReplies = async () => {
-      const response = await fetch(`/api/post/${postId}/get-post-replies`, {
+      const response = await fetch(`/api/post/${postId}`, {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
-        },
+          "Content-Type": "application/json"
+        }
       })
       const data = await response.json()
 
@@ -104,20 +104,19 @@ const PostPage = () => {
   const icons = [
     {
       name: "gif",
-      icon: "/icons/gif.svg",
+      icon: "/icons/gif.svg"
     },
     {
       name: "emoji",
-      icon: "/icons/emoji.svg",
+      icon: "/icons/emoji.svg"
     },
     {
       name: "location",
-      icon: "/icons/postLoc.svg",
-    },
+      icon: "/icons/postLoc.svg"
+    }
   ]
 
   
-
   return (
     <Content classes={`pb-16`}>
       <Header>
@@ -132,7 +131,7 @@ const PostPage = () => {
         </div>
       </Header>
       <DetailedPost post={post} />
-      {/* post reply */}
+
       <form
         onSubmit={handleSubmitNewReply}
         className="p-2 xxs:p-4 bg-slate-100 dark:bg-spotty rounded-xl"
@@ -200,7 +199,9 @@ const PostPage = () => {
           </button>
         </div>
       </form>
-      {/* post replies */}
+
+     
+
       {replies && (
         <ul>
           {replies.map((reply, i) => (

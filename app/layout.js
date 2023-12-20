@@ -4,6 +4,8 @@ import { AuthProvider } from "./Providers"
 import { PostsProvider } from "@/context/PostsContext"
 import dynamic from "next/dynamic"
 import BottomNav from "@/components/BottomNav/BottomNav"
+import RightBar from "@/components/RightBar"
+import { motion } from "framer-motion"
 import { usePathname } from "next/navigation"
 
 const DynamicSidebar = dynamic(() => import("@/components/SidebarNav"), {
@@ -19,14 +21,27 @@ export default function RootLayout({ children }) {
   const path = usePathname()
   return (
     <html lang="en">
-      <body
-        className={`p-2 ${
-          path === "/" ? "" : "xs:flex justify-center gap-2 bg-blue-600"
-        }`}
-      >
+      <body className={`p-2 lg:px-0 xs:flex xs:gap-2`}>
         <AuthProvider>
           <DynamicSidebar />
-          <PostsProvider>{children}</PostsProvider>
+          <PostsProvider>
+            <motion.div
+              key={path}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              variants={pageTransition}
+              transition={{ duration: 0.8 }}
+              className={`h-full  w-full ${
+                path === "/"
+                  ? "lg:overflow-hidden"
+                  : "max-w-[600px] md:min-w-[600px]"
+              }`}
+            >
+              {children}
+            </motion.div>
+          </PostsProvider>
+          <RightBar />
           <BottomNav />
         </AuthProvider>
       </body>

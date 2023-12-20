@@ -232,11 +232,7 @@ const Profile = () => {
           </p>
         </div>
       </div>
-      <p>Profile id</p>
-      {JSON.stringify(user._id, null, 2)}
-      <br />
-      <p>Current Userid</p>
-      {JSON.stringify(session?.user.id, null, 2)}
+     
       {/* bio */}
       <div className="px-4 leading-5 text-[14px]">{user?.bio}</div>
       {/* more user info */}
@@ -287,7 +283,7 @@ const Profile = () => {
           </p>
         </div>
 
-        {user?.bday && (
+        {user?.dob && (
           <div className="flex items-center gap-1">
             <Image
               src={`/icons/born.svg`}
@@ -296,7 +292,7 @@ const Profile = () => {
               height={18}
               alt=""
             />
-            <p className="font-medium whitespace-nowrap">{user?.bday}</p>
+            <p className="font-medium whitespace-nowrap">{user?.dob}</p>
           </div>
         )}
       </div>

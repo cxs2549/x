@@ -1,18 +1,21 @@
 "use client"
-import Footer from "@/components/Footer"
-import Header from "@/components/Header"
+import { useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import Header from "@/components/Header"
+import Footer from "@/components/Footer"
 import { signIn } from "next-auth/react"
 import { FcGoogle } from "react-icons/fc"
 import { TfiGithub } from "react-icons/tfi"
 import { useRouter } from "next/navigation"
 import { Mulish } from "next/font/google"
+import { useSession } from "next-auth/react"
 
 const mulish = Mulish({ subsets: ["latin"], weight: ["1000"] })
 
 const Onboarding = () => {
   const router = useRouter()
+  const { data: session, status } = useSession()
 
   const handleSignInGoogle = async () => {
     await signIn("google", {
@@ -20,10 +23,16 @@ const Onboarding = () => {
     })
     router.push("/home")
   }
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/home")
+    }
+  }, [status, router])
   return (
     <>
       <Header
-        classes={` px-4 xxs:px-8 sm:px-0 py-12  max-w-[568px] mx-auto  w-full lg:hidden !bg-transparent`}
+        classes={` px-4 xxs:px-8 sm:px-0 py-8  max-w-[568px] mx-auto  w-full lg:hidden !bg-transparent`}
       >
         <Image
           src={`/logo.png`}
@@ -33,8 +42,8 @@ const Onboarding = () => {
           className="dark:invert"
         />
       </Header>
-      <main className=" lg:flex lg:flex-1 lg:items-center justify-center rounded-xl lg:px-10 lg:mt-10  py-10">
-        <div className="flex-1  ">
+      <main className="justify-center py-2 lg:flex lg:flex-1 lg:items-center rounded-xl lg:px-10 lg:mt-20 md:pb-8">
+        <div className="flex-1 ">
           <Image
             src={`/logo.png`}
             width={310}
@@ -45,7 +54,7 @@ const Onboarding = () => {
         </div>
         <div className="flex-1 p-4 xxs:px-8 max-w-[668px] mx-auto  w-full flex flex-col h-fit  justify-center">
           <h1
-            className={`text-[40px] font-[900] leading-[48px] mb-10 xs:text-[64px] xs:leading-[78px]  ${mulish.className}`}
+            className={`text-[40px] font-[900] leading-[54px] mb-10 xs:text-[64px] xs:leading-[78px]  ${mulish.className}`}
           >
             Happening <br className="xxs:hidden xs:block sm:hidden" /> now
           </h1>
@@ -57,14 +66,14 @@ const Onboarding = () => {
             </h2>
             <button
               onClick={handleSignInGoogle}
-              className="flex justify-center items-center w-full gap-2 py-2 mt-5 xs:mt-6 font-bold text-black bg-white rounded-full"
+              className="flex items-center justify-center w-full gap-2 py-2 mt-5 font-bold text-black bg-white rounded-full xs:mt-6"
             >
               <FcGoogle size={20} className="w-[20px]" />{" "}
               <span>Sign up with Google</span>
             </button>
             <button
               onClick={() => handleSignIn("github")}
-              className="flex justify-center items-center w-full gap-2 py-2 mt-2 font-bold text-black bg-white rounded-full"
+              className="flex items-center justify-center w-full gap-2 py-2 mt-2 font-bold text-black bg-white rounded-full"
             >
               <TfiGithub size={20} className="w-[20px]" />{" "}
               <span>Sign up with Github</span>
@@ -81,13 +90,13 @@ const Onboarding = () => {
           >
             Create account
           </Link>
-          <div className="text-[11px] font-medium text-fade mt-2 max-w-[300px]">
+          <div className="text-[11px] font-medium text-fade mt-2 max-w-[300px] leading-3">
             By signing up, you agree to the{" "}
             <span className="cursor-pointer text-brand">Terms of Service</span>{" "}
             and{" "}
             <span className="cursor-pointer text-brand">Privacy Policy</span>,
             including{" "}
-            <span className="cursor-pointer text-brand">Cookie Use</span>.
+            <span className="cursor-pointer text-brand">Cookie Use.</span>
           </div>
           <section className="mt-10 xs:mt-12 max-w-[300px] ">
             <h3 className="text-[17px] font-bold">Already have an account?</h3>

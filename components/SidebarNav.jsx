@@ -26,49 +26,49 @@ const SidebarNav = () => {
     {
       name: "home",
       href: "/home",
-      icon: "/icons/home.svg",
+      icon: "/icons/home.svg"
     },
     {
       name: "explore",
       href: "/explore",
-      icon: "/icons/search.svg",
+      icon: "/icons/search.svg"
     },
     {
       name: "notifications",
       href: "/notifications",
-      icon: "/icons/notifications.svg",
+      icon: "/icons/notifications.svg"
     },
     {
       name: "messages",
       href: "/messages",
-      icon: "/icons/inbox.svg",
+      icon: "/icons/inbox.svg"
     },
     {
       name: "lists",
       href: "/lists",
-      icon: "/icons/lists.svg",
+      icon: "/icons/lists.svg"
     },
 
     {
       name: "bookmarks",
       href: "/bookmarks",
-      icon: "/icons/bookmarks.svg",
+      icon: "/icons/bookmarks.svg"
     },
     {
       name: "communities",
       href: "/communities",
-      icon: "/icons/communities.svg",
+      icon: "/icons/communities.svg"
     },
     {
       name: "premium",
       href: "/premium",
-      icon: "/icons/premium.svg",
+      icon: "/icons/premium.svg"
     },
     {
       name: "profile",
       href: `/${session?.user?.username}`,
-      icon: "/icons/profile.svg",
-    },
+      icon: "/icons/profile.svg"
+    }
   ]
 
   const handleSignout = async () => {
@@ -80,9 +80,11 @@ const SidebarNav = () => {
     <nav
       className={`min-w-[66px] max-w-[66px] mb-2 xl:min-w-[275px] xl:max-w-[275px]  z-10 h-[100vh] hidden  ${
         pathname === "/" ? "hidden" : "xs:block"
+      } ${pathname === "/login" ? "!hidden" : "xs:block"} ${
+        session?.user ? "xs:block" : "!hidden"
       }`}
     >
-      <div className="bg-slate-100 dark:bg-[#121212] shadow-lg  fixed top-2 bottom-2 rounded-xl max-w-[66px] min-w-[66px] xl:max-w-[275px] xl:min-w-[275px] xl:px-4">
+      <div className="bg-slate-100 dark:bg-spotty dark:bg-gradient-to-b from-spotty to-black shadow-lg  fixed top-2 bottom-2 rounded-xl max-w-[66px] min-w-[66px] xl:max-w-[275px] xl:min-w-[275px] xl:px-4">
         <ul
           ref={ref}
           className="flex flex-col items-center h-full py-4 xl:items-start "
@@ -124,7 +126,7 @@ const SidebarNav = () => {
                     />
                   </button>
                   <div
-                    className={`absolute grid w-auto h-4 px-1 text-xs font-semibold text-white rounded-full right-1.5 border dark:border-fade place-items-center top-2 bg-brand ${
+                    className={`absolute grid w-auto h-4 px-1 text-[10px] font-semibold text-white rounded-full right-1.5   place-items-center top-2 bg-brand ${
                       icon.name === "messages" || icon.name === "notifications"
                         ? ""
                         : "hidden"
@@ -134,8 +136,8 @@ const SidebarNav = () => {
                   </div>
                 </div>
                 <h2
-                  className={`text-lg font-bold capitalize hidden xl:block group-hover:opacity-100 group-hover:text-white ${
-                    pathname === icon.href ? "" : "opacity-50"
+                  className={`text-[20px]  capitalize hidden xl:block group-hover:opacity-100 group-hover:text-white ${
+                    pathname === icon.href ? "font-bold" : "opacity-50 font-medium"
                   }`}
                 >
                   {icon.name}
@@ -166,7 +168,7 @@ const SidebarNav = () => {
                 size={25}
                 className="translate-y-0.5 invert dark:invert-0 xl:hidden"
               />
-              <h2 className="hidden text-lg font-bold text-white xl:block ">
+              <h2 className="hidden text-[20px] font-bold text-white xl:block ">
                 Post
               </h2>
             </Link>
@@ -188,7 +190,7 @@ const SidebarNav = () => {
             </ul>
             <button
               onClick={() => setShowPop((val) => !val)}
-              className="flex flex-col items-center justify-center rounded-full w-14 h-14 xl:w-[244px] xl:flex-row xl:justify-between xl:px-2  hover:bg-brand transition-colors duration-[400ms]  group "
+              className="flex flex-col items-center justify-center rounded-full w-14 h-14 xl:w-[244px] xl:flex-row xl:justify-between xl:px-2  hover:bg-brand transition-colors duration-[400ms]  group border-[2.5px] dark:border-brand/60"
             >
               <Image
                 src={session?.user.image || `/faces/noface.png`}
@@ -206,7 +208,7 @@ const SidebarNav = () => {
                 </p>
               </div>
               <MoreHorizontal
-                className="hidden xl:block group-hover:invert group-hover:dark:invert-0"
+                className="hidden opacity-50 xl:block group-hover:invert group-hover:dark:invert-0"
                 size={18}
               />
             </button>

@@ -1,9 +1,9 @@
 import mongoose from "mongoose"
 
 const postSchema = new mongoose.Schema({
-  image: { type: String, required: true },
-  name: { type: String, required: true },
-  username: { type: String, required: true },
+  image: { type: String },
+  name: { type: String },
+  username: { type: String },
   postedAt: { type: String },
   datePosted: { type: String },
   msg: { type: String },
@@ -13,7 +13,7 @@ const postSchema = new mongoose.Schema({
   views: { type: Number },
   reposts: { type: Number },
   likes: { type: Number },
-  bookmarks: { type: Number },
+  bookmarks: { type: Number }
 })
 
 let Post

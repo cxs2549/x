@@ -50,7 +50,7 @@ const Login = () => {
 
   return (
     <>
-      <Header classes={`border-none px-4 justify-center lg:hidden`}>
+      <Header classes={`border-none !bg-transparent px-4 justify-center lg:hidden`}>
         <Link href="/">
           <Image
             src={`/logo.png`}
@@ -61,7 +61,7 @@ const Login = () => {
           />
         </Link>
       </Header>
-      <main className="max-w-[1140px] border lg:flex lg:gap-10  flex-1 lg:items-center  w-full mx-auto lg:justify-center mt-20 h-full">
+      <main className="max-w-[1140px] h-[calc(100vh-320px)] lg:flex lg:gap-10  flex-1 lg:items-center  w-full mx-auto lg:justify-center mt-20">
       <Image
           src={`/logo.png`}
           width={310}

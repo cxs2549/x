@@ -12,6 +12,7 @@ const BottomNav = () => {
   const [scrollPos, setScrollPos] = useState(0)
   const barRef = useRef(null)
   const { data: session } = useSession()
+ 
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,12 +75,12 @@ const BottomNav = () => {
                   } dark:invert`}
                 />
                 {icon.name === "notifications" && (
-                  <div className="absolute grid w-[18px] h-[18px] text-[10px] font-medium text-white rounded-full left-4 -top-1 bg-brand place-items-center border dark:border-black">
+                  <div className="absolute grid w-[18px] h-[18px] text-[10px] font-medium text-white rounded-full left-4 -top-1 bg-brand place-items-center  ">
                     9
                   </div>
                 )}
                 {icon.name === "messages" && (
-                  <div className="absolute grid w-[18px] h-[18px] text-[10px] font-medium text-white rounded-full left-4 -top-1 bg-brand place-items-center border dark:border-black">
+                  <div className="absolute grid w-[18px] h-[18px] text-[10px] font-medium text-white rounded-full left-4 -top-1 bg-brand place-items-center  ">
                     11
                   </div>
                 )}

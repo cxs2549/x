@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply antialiased dark:text-white dark:bg-black;
+  @apply antialiased dark:text-white dark:bg-black max-w-[1310px] mx-auto;
 }
 
 * {

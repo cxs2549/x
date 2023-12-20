@@ -1,5 +1,5 @@
 "use client"
-import { ChevronLeft, ChevronRight, X } from "react-feather"
+import { ChevronLeft } from "react-feather"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import Header from "@/components/Header"
@@ -16,6 +16,7 @@ const Settings = () => {
   const [location, setLocation] = useState("")
   const [link, setLink] = useState("")
   const [bday, setBday] = useState("")
+  
 
   const router = useRouter()
 
@@ -26,18 +27,7 @@ const Settings = () => {
     setBio(session?.user?.bio)
     setLocation(session?.user?.location)
     setLink(session?.user?.link)
-    setBday(session?.user?.bday)
-    setFormData({
-      name: session?.user?.name,
-      bio: session?.user?.bio,
-      location: session?.user?.location,
-      image: session?.user?.image,
-      bgimage: session?.user?.bgimage,
-      link: session?.user?.link,
-      bday: session?.user?.bday,
-      userId: session?.user?.id,
-      username: session?.user?.username
-    })
+    setBday(session?.user?.dob)
   }, [session?.user])
 
   // for photo
@@ -64,7 +54,7 @@ const Settings = () => {
     }
   }
 
-  const [formData, setFormData] = useState({})
+ 
 
   const handleSave = async (e) => {
     e.preventDefault()
@@ -91,7 +81,7 @@ const Settings = () => {
     )
     const data = await response.json()
     setImage(data.secure_url)
-    
+
     const photoFormData2 = new FormData()
     for (const file of fileInput2.files) {
       photoFormData.append("file", file)
@@ -109,7 +99,7 @@ const Settings = () => {
     setBgImage(data2.secure_url)
 
     const updatedUser = {
-      ...formData,
+      userId: session?.user?.id,
       name,
       bio,
       location,
@@ -118,6 +108,8 @@ const Settings = () => {
       image,
       bgimage
     }
+
+    console.log(JSON.stringify(updatedUser));
 
     try {
       const response = await fetch("/api/update-user", {
@@ -130,7 +122,7 @@ const Settings = () => {
 
       if (response.ok) {
         // Redirect the user to their profile page
-        router.push(`/${formData.username}`)
+        router.push(`/${session?.user?.username}`)
       } else {
         console.error("Failed to update user")
       }
@@ -210,7 +202,7 @@ const Settings = () => {
               />
             </div>
             <Image
-              src={image}
+              src={session?.user?.image}
               width={80}
               height={80}
               alt=""
@@ -319,7 +311,7 @@ const Settings = () => {
                     name="bday"
                     id="bday"
                     autoComplete="bday"
-                    value={session?.user?.bday}
+                    value={bday}
                     onChange={(e) => setBday(e.target.value)}
                     className="flex-1 block w-full min-w-0 p-2 border rounded border-fade focus:ring-indigo-500 dark:bg-transparent dark:border-fade focus:border-indigo-500 sm:text-sm"
                   />
