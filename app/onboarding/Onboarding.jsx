@@ -24,11 +24,11 @@ const Onboarding = () => {
     router.push("/home")
   }
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/home")
-    }
-  }, [status, router])
+  // useEffect(() => {
+  //   if (status === "authenticated") {
+  //     router.push("/home")
+  //   }
+  // }, [status, router])
   return (
     <>
       <Header
@@ -66,23 +66,23 @@ const Onboarding = () => {
             </h2>
             <button
               onClick={handleSignInGoogle}
-              className="flex items-center justify-center w-full gap-2 py-2 mt-5 font-bold text-black bg-white rounded-full xs:mt-6"
+              className="flex items-center justify-center w-full gap-2 py-2 mt-5 font-bold text-white bg-blue-400 rounded-full dark:text-black dark:bg-white xs:mt-6"
             >
               <FcGoogle size={20} className="w-[20px]" />{" "}
-              <span>Sign up with Google</span>
+              <span>Sign in with Google</span>
             </button>
             <button
               onClick={() => handleSignIn("github")}
-              className="flex items-center justify-center w-full gap-2 py-2 mt-2 font-bold text-black bg-white rounded-full"
+              className="flex items-center justify-center w-full gap-2 py-2 mt-2 font-bold text-black rounded-full shadow dark:shadow-none dark:bg-white"
             >
               <TfiGithub size={20} className="w-[20px]" />{" "}
-              <span>Sign up with Github</span>
+              <span>Sign in with Github</span>
             </button>
           </section>
           <div className="flex items-center w-full pt-2 max-w-[300px] ">
-            <div className="flex-grow h-px bg-fade/40" />
+            <div className="flex-grow h-px bg-fade/30" />
             <span className="px-4 font-semibold">or</span>
-            <div className="flex-grow h-px bg-fade/40" />
+            <div className="flex-grow h-px bg-fade/30" />
           </div>
           <Link
             href="/signup"

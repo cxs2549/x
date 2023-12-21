@@ -49,7 +49,7 @@ const Links = ({ setIsDrawerOpen }) => {
               document.body.style.overflow = "scroll"
             }}
             href={link.href}
-            className="flex items-center gap-1 pl-4 cursor-pointer hover:bg-brand hover:text-white group"
+            className="flex items-center gap-1 pl-4 cursor-pointer hover:bg-brand hover:text-white group w-fit rounded-full pr-4"
           >
             <div className="flex items-center w-10 h-10 ">
               <Image

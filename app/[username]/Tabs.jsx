@@ -92,7 +92,7 @@ export default function Tabs({ tabs, set, scroll = false, classes }) {
   }, [scrollRef?.current?.scrollWidth, scrollRef?.current?.offsetWidth])
 
   return (
-    <div className={`relative bg-slate-100 dark:bg-spotty mt-4 pt-1.5 max-w-[calc(100vw-16px)] px-4 rounded-xl`}>
+    <div className={`relative  dark:bg-black  pt-1.5 w-full px-4 border-b`}>
       <div
         ref={scrollRef}
         onScroll={scrollCheck}

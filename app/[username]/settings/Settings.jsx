@@ -132,7 +132,7 @@ const Settings = () => {
   }
 
   return (
-    <Content classes={`pb-12`}>
+    <Content classes={`pb-12 px-2 xs:px-0`}>
       <form onSubmit={handleSave} method="POST">
         <Header classes={`dark:bg-spotty bg-slate-100 mb-2`}>
           <button

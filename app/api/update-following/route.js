@@ -1,51 +1,54 @@
-import User from "@/models/User";
-import connectDB from "@/app/db";
+import User from "@/models/User"
+import connectDB from "@/app/db"
+import { NextResponse } from "next/server"
 
-export default async function handler(req, res) {
-  await connectDB();
+export async function POST(req) {
   try {
-    if (req.method === "POST") {
-      const { followerId, followeeId } = req.body;
+   
+      const { followerId, followeeId } = await req.json()
+      
+      await connectDB()
 
-      const follower = await User.findById(followerId);
+      const follower = await User.findById(followerId)
+
       if (!follower) {
-        return res.status(404).json({ message: "Follower not found" });
+        return NextResponse.json({ message: "Follower not found" }, { status: 404 })
       }
 
-      const followee = await User.findById(followeeId);
+      const followee = await User.findById(followeeId)
+
       if (!followee) {
-        return res.status(404).json({ message: "Followee not found" });
+        return NextResponse.json({ message: "Followee not found" }, { status: 404 })
       }
 
       // Check if the follower is already following the followee
-      const isFollowing = follower.following.includes(followeeId);
+      const isFollowing = follower.following.includes(followeeId)
 
       if (isFollowing) {
         // If already following, unfollow (remove from 'following' array)
         await User.findByIdAndUpdate(followerId, {
-          $pull: { following: followeeId },
-        });
+          $pull: { following: followeeId }
+        })
         await User.findByIdAndUpdate(followeeId, {
-          $pull: { followers: followerId },
-        });
+          $pull: { followers: followerId }
+        })
 
-        res.status(200).json({ message: "Unfollowed successfully" });
+        return NextResponse.json({ message: "Unfollowed successfully" }, { status: 200 })
+        
       } else {
         // If not following, follow (add to 'following' array)
         await User.findByIdAndUpdate(followerId, {
-          $addToSet: { following: followeeId },
-        });
+          $addToSet: { following: followeeId }
+        })
         await User.findByIdAndUpdate(followeeId, {
-          $addToSet: { followers: followerId },
-        });
+          $addToSet: { followers: followerId }
+        })
 
-        res.status(200).json({ message: "Followed successfully" });
+        return NextResponse.json({ message: "Followed successfully" }, { status: 200 })
       }
-    } else {
-      res.status(405).json({ error: "Method not allowed" });
-    }
+   
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Failed to update following/followers" });
+    console.error(error)
+    return NextResponse.json({ message: "Failed to update following/followers" }, { status: 500 })
   }
 }

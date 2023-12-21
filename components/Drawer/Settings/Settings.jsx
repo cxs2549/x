@@ -6,14 +6,7 @@ import { ChevronDown } from "react-feather"
 
 const Settings = ({ setSettingsOpen, settingsOpen }) => {
 
-  const handleSignout = async () => {
-    // Clear the session data
-    // Clear local storage
-    localStorage.clear()
-    await signOut({ redirect: false });
-    // Redirect to the home page
-    router.push("/")
-  }
+  
   
   const settings = [
     {

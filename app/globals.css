@@ -7,6 +7,6 @@ body {
 }
 
 * {
-  @apply dark:border-[#333639];
+  @apply dark:border-[#333639] border-slate-100;
   scrollbar-width: none;
 }

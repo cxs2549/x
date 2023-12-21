@@ -25,7 +25,7 @@ function handleOnChangePhoto(changeEvent) {
 const PostPage = () => {
   const router = useRouter()
   const { postId } = useParams()
-  const [post, setPost] = useState([])
+  const [post, setPost] = useState()
   const { data: session } = useSession()
   const [newReply, setNewReply] = useState("")
   const [replies, setReplies] = useState([])
@@ -38,7 +38,10 @@ const PostPage = () => {
       }
     })
       .then((response) => response.json())
-      .then((data) => setPost(data.post[0]))
+      .then((data) => {
+        setPost(data.post)
+        setReplies(data.post.replies)
+      })
   }, [postId])
 
   const handleSubmitNewReply = async (e) => {
@@ -85,22 +88,6 @@ const PostPage = () => {
     }
   }
 
-  // fetch all replies
-  useEffect(() => {
-    const getPostReplies = async () => {
-      const response = await fetch(`/api/post/${postId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      const data = await response.json()
-
-      setReplies(data.replies)
-    }
-    getPostReplies()
-  })
-
   const icons = [
     {
       name: "gif",
@@ -116,9 +103,8 @@ const PostPage = () => {
     }
   ]
 
-  
   return (
-    <Content classes={`pb-16`}>
+    <Content classes={`pb-16 border-x dark:border-spotty min-h-screen`}>
       <Header>
         <div className="flex items-center gap-4">
           <button
@@ -127,18 +113,18 @@ const PostPage = () => {
           >
             <ChevronLeft className="opacity-50 group-hover:opacity-100" />
           </button>
-          <h2 className="font-bold xs:text-lg">Post</h2>
+          <h2 className="font-bold xs:text-lg lg:text-[20px]">Post</h2>
         </div>
       </Header>
       <DetailedPost post={post} />
 
       <form
         onSubmit={handleSubmitNewReply}
-        className="p-2 xxs:p-4 bg-slate-100 dark:bg-spotty rounded-xl"
+        className="p-2 bg-transparent xxs:p-4 rounded-xl"
       >
         <div className="flex gap-2">
           <Image
-            src={session?.user.image}
+            src={session?.user?.image || "/faces/noface.png"}
             width={40}
             height={40}
             className="w-10 h-10 rounded-full"
@@ -147,7 +133,7 @@ const PostPage = () => {
           <textarea
             type="text"
             placeholder="Post your reply"
-            className="w-full p-2 resize-none rounded-xl dark:bg-black"
+            className="w-full p-2 rounded-lg resize-none bg-slate-100 dark:bg-spotty focus:outline-none"
             value={newReply}
             onChange={(e) => setNewReply(e.target.value)}
           />
@@ -199,8 +185,6 @@ const PostPage = () => {
           </button>
         </div>
       </form>
-
-     
 
       {replies && (
         <ul>

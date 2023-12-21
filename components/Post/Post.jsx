@@ -33,7 +33,7 @@ const Post = ({ post }) => {
   }
 
   return (
-    <div className="flex flex-col p-2 xxs:p-4 rounded-xl bg-slate-100 hover:bg-slate-100/90 dark:hover:bg-spotty/80 cursor-pointer transition-colors duration-500 xl:min-w-[600px] dark:bg-spotty ">
+    <div className="flex flex-col p-2 xxs:p-4   cursor-pointer duration-200 xl:min-w-[600px] dark:bg-transparent transition-all  ease-linear hover:bg-slate-100/60 dark:hover:bg-spotty/80">
       <UserInfo post={post} />
       <Link
         onClick={incrementViews}

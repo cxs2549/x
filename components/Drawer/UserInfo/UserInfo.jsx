@@ -22,8 +22,8 @@ const UserInfo = () => {
             alt=""
           />
         </Link>
-        <button className="grid border rounded-full dark:border-fade w-9 h-9 place-items-center hover:bg-slate-100">
-          <Plus className="font-lightFont" size={19} />
+        <button className="grid border rounded-full group dark:border-slate-800 w-9 h-9 place-items-center hover:bg-slate-100">
+          <Plus className="group-hover:text-brand text-slate-600" size={19} />
         </button>
       </div>
       {/* name handle */}

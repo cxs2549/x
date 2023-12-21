@@ -104,12 +104,12 @@ const Stats = ({ post }) => {
     }
   ]
   return (
-    <ul className={`flex justify-between  pt-2`}>
+    <ul className={`flex  w-full justify-center gap-8  pt-2`}>
       {icons.map((icon, i) => (
         <li key={i} className="z-0 flex items-center space-x-1">
           <button
             onClick={icon.onClick}
-            className="flex items-center gap-1 text-fade dark:hover:text-white hover:text-black"
+            className="flex items-center gap-1 text-fade "
           >
             {icon.icon}
             <p className="text-sm font-medium">

@@ -109,7 +109,7 @@ const UserInfo = ({ post }) => {
           />
         </button>
         <div
-          className={`absolute right-0 p-2 bg-white rounded-md shadow-lg top-5 dark:bg-black/50 w-fit whitespace-nowrap ${
+          className={`absolute right-0 p-2 bg-white rounded-md top-5 dark:bg-black/50 w-fit whitespace-nowrap ${
             openMore ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
         >

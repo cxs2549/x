@@ -23,7 +23,6 @@ const DynamicContent = dynamic(
 )
 
 const Profile = () => {
-  const [isFollowing, setIsFollowing] = useState(false)
   const [user, setUser] = useState({})
   const [userId, setUserId] = useState(null)
   const [currentUserId, setCurrentUserId] = useState("")
@@ -32,6 +31,9 @@ const Profile = () => {
   const router = useRouter()
 
   const { data: session } = useSession()
+  const [isFollowing, setIsFollowing] = useState(
+    session?.user?.following.includes(user?._id)
+  )
 
   // get profile user
   useEffect(() => {
@@ -47,13 +49,6 @@ const Profile = () => {
         const data = await response.json()
         setUser(data.user)
         setUserId(data.user._id)
-        setCurrentUserId(session?.user.id)
-        console.log(
-          "profile user id",
-          user._id,
-          "loggedin user id",
-          currentUserId
-        )
       } catch (error) {
         console.error("Error:", error)
       }
@@ -108,7 +103,6 @@ const Profile = () => {
     getUserPosts()
   })
 
-  4
   // add to following
   const followUser = async () => {
     try {
@@ -156,32 +150,32 @@ const Profile = () => {
   ]
 
   return (
-    <DynamicContent classes="flex flex-col mb-2">
+    <DynamicContent classes="flex flex-col gap-y-[1rem] xs:border-x pb-10">
       {/* bg/avatar/back button */}
       <div className="relative ">
         <button
           onClick={() => router.back()}
-          className="absolute p-1 transition-all duration-500 rounded-full left-4 top-[13px] dark:bg-spotty/50 group bg-white/50 xs:hidden"
+          className="absolute p-1 transition-all duration-500 rounded-full left-4 top-[13px] dark:bg-spotty/50 group bg-transparent xs:hidden"
         >
-          <ChevronLeft className="opacity-50 group-hover:opacity-100" />
+          <ChevronLeft className="opacity-50 text-spotty group-hover:opacity-100" />
         </button>
         <Image
           src={user?.bgimage || `/mainbg.png`}
           width={600}
           height={200}
           alt=""
-          className="rounded-xl max-h-[200px] object-cover object-bottom"
+          className=" max-h-[200px] object-cover object-center"
         />
         <Image
           src={user?.image || `/faces/noface.png`}
           width={80}
           height={80}
           alt=""
-          className="absolute border-[2.5px] rounded-full left-4 -bottom-10 dark:border-black border-white xs:w-28 xs:h-w-28 sm:h-32 sm:w-32 sm:border-[4px]"
+          className="absolute border-[2.5px] rounded-full left-4 -bottom-10 dark:border-black border-white xs:w-28 xs:h-w-28 sm:h-32 sm:w-32 xs:border-[4px] xxs:border-[3px]"
         />
       </div>
       {/* buttons */}
-      <div className="flex items-center justify-end gap-2">
+      <div className="flex items-center justify-end gap-2 ">
         {username === session?.user.username && (
           <Link
             href={`/${user?.username}/settings`}
@@ -220,7 +214,7 @@ const Profile = () => {
         )}
       </div>
       {/* basic user info */}
-      <div className="px-4 -translate-y-2 xs:translate-y-0">
+      <div className="px-4 ">
         <div className="">
           <div className="flex items-center gap-1">
             <h1 className="text-[20px] font-bold">{user?.name}</h1>
@@ -232,11 +226,10 @@ const Profile = () => {
           </p>
         </div>
       </div>
-     
       {/* bio */}
-      <div className="px-4 leading-5 text-[14px]">{user?.bio}</div>
+      <div className="px-4 leading-5 text-[14px] ">{user?.bio}</div>
       {/* more user info */}
-      <div className="flex flex-wrap items-center  mt-2 gap-y-0.5 gap-x-3 px-4 text-fade text-[14px] ">
+      <div className="flex flex-wrap items-center  gap-y-0.5 gap-x-3 px-4 text-fade text-[14px] ">
         {user?.occupation && (
           <div className="flex items-center gap-1">
             <Briefcase size={18} />
@@ -271,17 +264,21 @@ const Profile = () => {
           </div>
         )}
 
-        <div className="flex items-center gap-1">
-          <Calendar size={18} />
-          <p className="font-medium whitespace-nowrap">
-            Joined{" "}
-            {new Date(user?.joined).toLocaleDateString("en-US", {
-              month: "long",
-              year: "numeric",
-              timeZone: "UTC"
-            })}
-          </p>
-        </div>
+        {user?.joined ? (
+          <div className="flex items-center gap-1">
+            <Calendar size={18} />
+            <p className="font-medium whitespace-nowrap">
+              Joined{" "}
+              {new Date(user?.joined).toLocaleDateString("en-US", {
+                month: "long",
+                year: "numeric",
+                timeZone: "UTC"
+              })}
+            </p>
+          </div>
+        ) : (
+          <div className="h-[16px] bg-slate-100 animate-pulse rounded-full w-[120px]"></div>
+        )}
 
         {user?.dob && (
           <div className="flex items-center gap-1">
@@ -298,7 +295,7 @@ const Profile = () => {
       </div>
 
       {/* followings */}
-      <div className="flex gap-2  text-sm py-0.5 mt-4 font-medium px-4">
+      <div className="flex gap-2  text-sm py-0.5 font-medium px-4 ">
         <Link
           href={`/${username}/following`}
           className="cursor-pointer text-fade hover:underline"
@@ -329,7 +326,7 @@ const Profile = () => {
       {/* tabs */}
       <Tabs tabs={tabs} scroll />
       {/* posts */}
-      <ul className="flex flex-col gap-2 mt-2">
+      <ul className="flex flex-col divide-y">
         {posts.map((post, i) => (
           <li key={i}>
             <Post post={post} />

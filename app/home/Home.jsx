@@ -29,10 +29,14 @@ const Home = () => {
       <motion.ul
         initial={{ opacity: 0, y: "5%" }}
         animate={{ opacity: 1, y: 0 }}
-        className="space-y-2"
+        className="divide-y dark:divide-spotty"
       >
         {posts.map((post, i) => (
-          <motion.li key={i} transition={{ duration: 0.5, stagger: 0.9 }}>
+          <motion.li
+            className=""
+            key={i}
+            transition={{ duration: 0.5, stagger: 0.9 }}
+          >
             <Post post={post} />
           </motion.li>
         ))}
@@ -41,8 +45,10 @@ const Home = () => {
   )
 
   return (
-    <div className="flex flex-col  w-full max-w-[600px] mb-2 ">
-      <Header classes={`justify-between w-full  relative`}>
+    <div className="flex flex-col  w-full max-w-[600px] xs:border-x dark:border-spotty">
+      <Header
+        classes={`justify-between w-full  rounded-none xs:border-b border-slate-100 dark:border-spotty  relative bg-white dark:bg-black `}
+      >
         <div className="hidden xs:block"></div>
         <button
           onClick={() => {
@@ -68,7 +74,7 @@ const Home = () => {
           className="dark:invert xs:hidden"
         />
         <button className="hidden opacity-50 xs:block hover:opacity-100">
-          <BiCog size={25} />
+          <BiCog size={22} />
         </button>
       </Header>
       <Drawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />

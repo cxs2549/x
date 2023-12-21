@@ -110,7 +110,7 @@ const NewPost = () => {
 
   return (
     <div
-      className={`p-2 xxs:p-4 flex-col justify-between bg-slate-100 dark:bg-spotty rounded-xl min-h-[156px] max-w-[600px] mb-2 ${
+      className={`p-2 xxs:p-4 flex-col justify-between bg-transparent  rounded-xl min-h-[156px] max-w-[600px] mb-2 ${
         pathname === "/compose/post" ? "flex" : "hidden xs:flex"
       }`}
     >
@@ -135,7 +135,7 @@ const NewPost = () => {
             value={newPostContent}
             onChange={(e) => setNewPostContent(e.target.value)}
             placeholder="What's up?"
-            className={`${styles.newPost} text-[20px] font-medium bg-transparent focus:outline-none tracking-tight w-full focus:ring-0 resize-none`}
+            className={`${styles.newPost} text-[20px] font-medium bg-transparent focus:outline-none tracking-tight w-full focus:ring-0 resize-none dark:hover:bg-spotty p-2 transition-colors duration-300 rounded-xl hover:bg-slate-100`}
           />
         </div>
         {imageSrc && (

@@ -14,26 +14,26 @@ const RightBar = () => {
   const pathname = usePathname()
   return (
     <div
-      className={`w-[320px] xl:min-w-[390px] mb-2 pb-2 ${
+      className={`w-[320px] xl:min-w-[350px] mb-2 pb-2   ${
         pathname === "/" ? "hidden" : "hidden lg:block"
       }`}
     >
-      <div className="fixed top-2 bottom-2  w-[320px] xl:min-w-[390px] overflow-y-scroll  z-10 h-[100vh]  rounded-xl flex flex-col">
+      <div className="fixed top-2 bottom-2  w-[320px] xl:min-w-[350px] overflow-y-scroll  z-10 h-[100vh]   flex flex-col">
         {/* searchbar */}
         <div
-          className={` sticky top-0 p-4  w-full bg-slate-100  dark:bg-spotty rounded-xl shadow-sm  flex items-center ${
+          className={` sticky top-0 p-4 xl:pt-0  w-full bg-white dark:bg-black   flex items-center h-[63.5px] ${
             pathname === "/explore" ? "hidden" : ""
           }`}
         >
           <input
             type="search"
             placeholder="Search X"
-            className="w-full px-4 py-2 bg-white border-none rounded-full dark:bg-black dark:border-fade"
+            className="w-full px-4 py-2 border-none rounded-full bg-slate-100 dark:bg-spotty dark:border-fade focus:outline-none"
           />
         </div>
         {/* subscribe */}
         <div
-          className={`flex flex-col gap-2 p-4 shadow-sm dark:bg-spotty bg-slate-100 rounded-xl my-2 ${
+          className={`flex flex-col gap-2 p-4 shadow-sm dark:bg-black bg-white  my-2 ${
             pathname === "/explore" ? "mt-0" : ""
           }`}
         >
@@ -47,7 +47,7 @@ const RightBar = () => {
           </button>
         </div>
         {/* whats happenin */}
-        <div className="flex flex-col gap-2 pt-4 shadow-sm dark:bg-spotty bg-slate-100 rounded-xl">
+        <div className="flex flex-col gap-2 pt-4 bg-white shadow-sm dark:bg-black ">
           <h1 className="px-4 text-xl font-extrabold">{`What's happening`}</h1>
           <ul className="flex flex-col">
             <li className="flex justify-between px-4 py-3 transition-all duration-300 cursor-pointer hover:dark:bg-black/30 hover:bg-white/70">
@@ -109,7 +109,7 @@ const RightBar = () => {
           </ul>
         </div>
         {/* who to follow */}
-        <div className="flex flex-col gap-2 pt-4 my-2 shadow-sm dark:bg-spotty bg-slate-100 rounded-xl">
+        <div className="flex flex-col gap-2 pt-4 my-2 bg-white shadow-sm dark:bg-black ">
           <h1 className="px-4 text-xl font-extrabold">{`Who to follow`}</h1>
           <ul className="flex flex-col">
             {[
@@ -180,7 +180,7 @@ const RightBar = () => {
           </ul>
         </div>
         <footer className="pb-2 mb-2">
-          <ul className="flex flex-wrap justify- gap-y-0 gap-x-3">
+          <ul className="flex flex-wrap pl-4 justify- gap-y-0 gap-x-3">
             <li className="text-[12px] font-medium text-fade">
               Terms of Service
             </li>

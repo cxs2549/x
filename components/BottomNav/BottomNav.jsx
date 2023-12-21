@@ -12,7 +12,6 @@ const BottomNav = () => {
   const [scrollPos, setScrollPos] = useState(0)
   const barRef = useRef(null)
   const { data: session } = useSession()
- 
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,15 +51,18 @@ const BottomNav = () => {
     }
   ]
 
+
+  
+
   return (
     <nav
       ref={barRef}
-      className={`fixed  bottom-2 left-2 right-2 transitation-all duration-300 xs:hidden ${
+      className={`fixed  bottom-2 left-2 right-2 transitation-all ease-in-out duration-300 xs:hidden  ${
         show ? "translate-y-0" : "translate-y-[76px]"
       } ${session?.user ? "" : "hidden"}`}
     >
       <PostBtn />
-      <div className="items-center h-auto py-4 shadow-lg dark:border bg-slate-100 dark:bg-spotty backdrop-blur-md rounded-xl border-lightFade dark:border-none">
+      <div className="items-center h-auto py-4 rounded-lg shadow-lg dark:border bg-slate-100/50 dark:bg-spotty/50 border-lightFade dark:border-none backdrop-blur-sm">
         <ul className="grid w-full grid-cols-4 place-items-center">
           {icons.map((icon, i) => (
             <li key={i} className="flex justify-center w-full ">
@@ -71,7 +73,7 @@ const BottomNav = () => {
                   height={26}
                   alt=""
                   className={`${
-                    pathname === icon.href ? "" : "opacity-40"
+                    pathname === icon.href ? "" : "opacity-30"
                   } dark:invert`}
                 />
                 {icon.name === "notifications" && (

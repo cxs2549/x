@@ -6,7 +6,7 @@ import Link from "next/link"
 const PostBtn = () => {
   const pathname = usePathname()
   return (
-    <div className="mb-4 ml-auto w-fit">
+    <div className="mb-4 ml-auto w-fit absolute right-0 z-10 bottom-[58px]">
       <Link href={`/compose/post`}>
         <button className="grid rounded-full shadow-xl w-14 h-14 place-items-center bg-brand">
           {pathname === "/messages" ? (

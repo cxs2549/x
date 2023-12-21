@@ -25,13 +25,13 @@ const Drawer = ({ isDrawerOpen, setIsDrawerOpen, username, name, image }) => {
       {/* drawer */}
       <div
         ref={ref}
-        className={`sidenav fixed top-4 left-4 bottom-4 transition-all duration-[700ms] w-[72%] max-w-[285px]  overflow-scroll  bg-slate-100 dark:bg-spotty dark:text-white z-50  dark:border-fade pb-8 rounded-xl shadow-lg ${
+        className={`sidenav fixed top-4 left-4 bottom-4 transition-all duration-[700ms] w-[72%] max-w-[285px]  overflow-scroll  bg-slate-100 dark:bg-gradient-to-r from-spotty to-black dark:text-white z-50  dark:border-fade pb-8 rounded-xl shadow-lg ${
           isDrawerOpen ? "translate-x-0" : "-translate-x-[400px]"
         }`}
       >
         <UserInfo username={username} name={name} image={image} />
         <Links setIsDrawerOpen={setIsDrawerOpen} username={username} />
-        <hr className="my-6 dark:border-fade" />
+        <hr className="my-6 dark:border-spotty" />
         <Settings
           setSettingsOpen={setSettingsOpen}
           settingsOpen={settingsOpen}
